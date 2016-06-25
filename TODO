@@ -1,3 +1,4 @@
-//TODO add automatic certificate generation
-// add -d parameter as prefix to uplad func
-// test for dir traversal file upload
+TODO add automatic certificate generation
+move certs to ~/.mpjserve/* (serving the private key is not a good idea XD)
+add -d parameter as prefix to uplad func
+test for dir traversal file upload
