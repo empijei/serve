@@ -6,9 +6,16 @@ This is meant to be a utility to ease the process of sharing files between compu
 * Upload files to the shared directory
 * Detects Avahi installation and gives the zeroconf (*.local) domain 
 * Finds local network ip address
+* Supports TLS
 
 ## Installation:
+### Get the tool:
 `go get https://github.com/empijei/serve`
+
+### Setup TLS:
+`bash ./generate-certificate.sh`
+
+WARNING: If you want to use zeroconf hostnames (*.local) remeber to put that hostname as name for your certificate.
 
 ## Usage: 
 ```
@@ -32,29 +39,4 @@ Local ip address:172.20.6.46
 Serving local folder /home/rob/share/ on "http://icarus.local:8080/"
 File Upload form is available at "http://icarus.local:8080/xyzzy/"
 Press Control+C to stop
-```
-
-## Repository info:
-### tree:
-```
-serve
-├── .gitignore
-├── lib
-│   ├── download.go
-│   ├── upload.go
-│   └── zeroconf.go
-├── LICENSE
-├── main.go
-├── README.md
-└── TODO
-```
-### cloc:
-```
--------------------------------------------------------------------------------
-Language                     files          blank        comment           code
--------------------------------------------------------------------------------
-Go                               4             17              1            182
--------------------------------------------------------------------------------
-SUM:                             4             17              1            182
--------------------------------------------------------------------------------
 ```

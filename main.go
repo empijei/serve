@@ -42,7 +42,7 @@ func main() {
 	if !*tls {
 		err = http.ListenAndServe(*localport, nil)
 	} else {
-		panic(fmt.Errorf("Not implemented yet"))
+		err = http.ListenAndServeTLS(*localport, "cert.pem", "key.pem", nil)
 	}
 	if err != nil {
 		log.Fatal(err)

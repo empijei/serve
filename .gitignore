@@ -1,2 +1,5 @@
 *.swp
+*~
+key.pem
+cert.pem
 tags
