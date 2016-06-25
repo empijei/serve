@@ -42,7 +42,8 @@ func main() {
 	if !*tls {
 		err = http.ListenAndServe(*localport, nil)
 	} else {
-		err = http.ListenAndServeTLS(*localport, "cert.pem", "key.pem", nil)
+		certpath := os.Getenv("HOME") + "/.servepj/"
+		err = http.ListenAndServeTLS(*localport, certpath+"cert.pem", certpath+"key.pem", nil)
 	}
 	if err != nil {
 		log.Fatal(err)

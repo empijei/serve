@@ -10,10 +10,16 @@ This is meant to be a utility to ease the process of sharing files between compu
 
 ## Installation:
 ### Get the tool:
-`go get https://github.com/empijei/serve`
+```sh
+go get https://github.com/empijei/serve
+```
 
 ### Setup TLS:
-`bash ./generate-certificate.sh`
+```sh
+bash $GOPATH/src/github.com/empijei/serve/generate-certificate.sh
+```
+
+Follow the wizard.
 
 WARNING: If you want to use zeroconf hostnames (*.local) remeber to put that hostname as name for your certificate.
 
@@ -29,6 +35,7 @@ Usage of serve:
     	The webpath where the uplaod form is hosted (default "xyzzy/")
   -w string
     	The root webpath (default "/")
+  -h prints this help
 ```
 
 Example to share the ~/share folder on a computer named icarus
