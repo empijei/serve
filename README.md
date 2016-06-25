@@ -24,7 +24,7 @@ Usage of serve:
     	The root webpath (default "/")
 ```
 
-Example to share the ~/share folder
+Example to share the ~/share folder on a computer named icarus
 ```
 ╭─ (OK) rob@icarus:~
 ╰─$ serve
@@ -34,9 +34,11 @@ File Upload form is available at "http://icarus.local:8080/xyzzy/"
 Press Control+C to stop
 ```
 
-## Repository tree:
+## Repository info:
+### tree:
 ```
 serve
+├── .gitignore
 ├── lib
 │   ├── download.go
 │   ├── upload.go
@@ -45,6 +47,14 @@ serve
 ├── main.go
 ├── README.md
 └── TODO
-
-1 directory, 7 files
+```
+### cloc:
+```
+-------------------------------------------------------------------------------
+Language                     files          blank        comment           code
+-------------------------------------------------------------------------------
+Go                               4             17              1            182
+-------------------------------------------------------------------------------
+SUM:                             4             17              1            182
+-------------------------------------------------------------------------------
 ```

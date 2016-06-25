@@ -27,7 +27,7 @@ func init() {
 }
 func main() {
 	fmt.Println("Serve is availble at https://github.com/empijei/serve")
-	fmt.Println("Local ip address:" + lib.MyIP().String())
+	fmt.Println("Local ip address: " + lib.MyIP().String())
 	err := lib.DirList(*localfolder, *webpath)
 	if err != nil {
 		log.Fatal(err)
