@@ -6,6 +6,8 @@ import (
 	"os"
 )
 
+// MyName tries to resolve a zeroconf local domain name and returns it,
+// falling back to "localhost" if no other name is found.
 func MyName() string {
 	ip := MyIP()
 	h, err := os.Hostname()
@@ -23,6 +25,8 @@ func MyName() string {
 	return ip.String()
 }
 
+// MyIP returns the IP address of the machine, falling back to 127.0.0.1 if
+// no other IP is found.
 func MyIP() net.IP {
 	ifaces, err := net.Interfaces()
 	if err != nil {

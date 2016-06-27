@@ -29,6 +29,9 @@ func init() {
 	tokens = make(map[string]struct{})
 }
 
+// UploaderEndpoint handles file uploading.
+// It responds to GET requests with the file upload form, and to POST
+// requests with the actual uploading.
 func UploaderEndpoint(path, webpath string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == "GET" {
@@ -48,7 +51,7 @@ func UploaderEndpoint(path, webpath string) http.HandlerFunc {
 			if err != nil {
 				log.Println(err)
 			}
-		} else {
+		} else if r.Method == "POST" {
 			r.ParseMultipartForm(32 << 20)
 			if _, ok := tokens[r.FormValue("token")]; !ok {
 				http.Error(w, "NOPE", http.StatusUnauthorized)
@@ -73,6 +76,8 @@ func UploaderEndpoint(path, webpath string) http.HandlerFunc {
 				return
 			}
 			fmt.Fprintf(w, "<h1> Uploaded %d bytes</h1><a href='"+webpath+"'>Back to dirlist</a>", n)
+		} else {
+			http.Error(w, "Invalid method.", http.StatusMethodNotAllowed)
 		}
 	}
 }
