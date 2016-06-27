@@ -29,7 +29,7 @@ func init() {
 	tokens = make(map[string]struct{})
 }
 
-func UploaderEndpoint(path string) http.HandlerFunc {
+func UploaderEndpoint(path, webpath string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == "GET" {
 			data := make([]byte, 8)
@@ -49,9 +49,9 @@ func UploaderEndpoint(path string) http.HandlerFunc {
 				log.Println(err)
 			}
 		} else {
-			_ = r.ParseMultipartForm(32 << 20)
+			r.ParseMultipartForm(32 << 20)
 			if _, ok := tokens[r.FormValue("token")]; !ok {
-				_, _ = w.Write([]byte("<h1>NOPE</h1>"))
+				http.Error(w, "NOPE", http.StatusUnauthorized)
 				return
 			}
 			file, handler, err := r.FormFile("uploadfile")
@@ -59,20 +59,20 @@ func UploaderEndpoint(path string) http.HandlerFunc {
 				fmt.Println(err)
 				return
 			}
-			defer func() { _ = file.Close() }()
+			defer func() { file.Close() }()
 			f, err := os.OpenFile(handler.Filename, os.O_WRONLY|os.O_CREATE, 0666)
 			if err != nil {
 				fmt.Println(err)
 				return
 			}
-			defer func() { _ = f.Close() }()
+			defer func() { f.Close() }()
 			n, err := io.Copy(f, file)
 			if err != nil {
-				fmt.Fprintf(w, "Errors occourred")
+				fmt.Fprintf(w, "Errors occurred")
 				log.Println(err)
 				return
 			}
-			fmt.Fprintf(w, "<h1> Uploaded %d bytes</h1>", n)
+			fmt.Fprintf(w, "<h1> Uploaded %d bytes</h1><a href='"+webpath+"'>Back to dirlist</a>", n)
 		}
 	}
 }
