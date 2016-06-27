@@ -52,7 +52,7 @@ func UploaderEndpoint(path, webpath string) http.HandlerFunc {
 				log.Println(err)
 			}
 		} else if r.Method == "POST" {
-			r.ParseMultipartForm(32 << 20)
+			_ = r.ParseMultipartForm(32 << 20)
 			if _, ok := tokens[r.FormValue("token")]; !ok {
 				http.Error(w, "NOPE", http.StatusUnauthorized)
 				return
@@ -62,13 +62,13 @@ func UploaderEndpoint(path, webpath string) http.HandlerFunc {
 				fmt.Println(err)
 				return
 			}
-			defer func() { file.Close() }()
+			defer func() { _ = file.Close() }()
 			f, err := os.OpenFile(handler.Filename, os.O_WRONLY|os.O_CREATE, 0666)
 			if err != nil {
 				fmt.Println(err)
 				return
 			}
-			defer func() { f.Close() }()
+			defer func() { _ = f.Close() }()
 			n, err := io.Copy(f, file)
 			if err != nil {
 				fmt.Fprintf(w, "Errors occurred")

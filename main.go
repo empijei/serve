@@ -55,13 +55,13 @@ func main() {
 // Name returns the full URL for the local port and webpath passed from the command line
 func Name() string {
 	b := bytes.Buffer{}
-	b.WriteString("http")
+	_, _ = b.WriteString("http")
 	if *tls {
-		b.WriteString("s")
+		_, _ = b.WriteString("s")
 	}
-	b.WriteString("://")
-	b.WriteString(lib.MyName())
-	b.WriteString(*localport)
-	b.WriteString(*webpath)
+	_, _ = b.WriteString("://")
+	_, _ = b.WriteString(lib.MyName())
+	_, _ = b.WriteString(*localport)
+	_, _ = b.WriteString(*webpath)
 	return b.String()
 }
