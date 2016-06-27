@@ -14,7 +14,7 @@ import (
 
 var localport = flag.String("p", "8080", "The port to run on")
 var localfolder = flag.String("f", "", "The folder to serve (default PWD)")
-var uploadpath = flag.String("u", "xyzzy/", "The webpath where the uplaod form is hosted")
+var uploadpath = flag.String("u", "xyzzy/", "The webpath where the upload form is hosted")
 var webpath = flag.String("w", "/", "The root webpath")
 var tls = flag.Bool("s", false, "Use TLS")
 
@@ -25,6 +25,7 @@ func init() {
 		*localport = ":" + *localport
 	}
 }
+
 func main() {
 	fmt.Println("Serve is availble at https://github.com/empijei/serve")
 	fmt.Println("Local ip address: " + lib.MyIP().String())
@@ -35,8 +36,9 @@ func main() {
 	wd, err := os.Getwd()
 	fmt.Printf("Serving local folder %v on \"%s\"\n", wd+string(os.PathSeparator)+*localfolder, Name())
 
-	http.HandleFunc(*webpath+*uploadpath, lib.UploaderEndpoint(Name()+*uploadpath))
-	fmt.Printf("File Upload form is available at \"%s%s\"\n", Name(), *uploadpath)
+	name := Name()
+	http.HandleFunc(*webpath+*uploadpath, lib.UploaderEndpoint(name+*uploadpath, name+*webpath))
+	fmt.Printf("File Upload form is available at \"%s%s\"\n", name, *uploadpath)
 
 	fmt.Println("Press Control+C to stop")
 	if !*tls {
@@ -49,15 +51,17 @@ func main() {
 		log.Fatal(err)
 	}
 }
+
+// Name returns the full URL for the local port and webpath passed from the command line
 func Name() string {
 	b := bytes.Buffer{}
-	_, _ = b.WriteString("http")
+	b.WriteString("http")
 	if *tls {
-		_, _ = b.WriteString("s")
+		b.WriteString("s")
 	}
-	_, _ = b.WriteString("://")
-	_, _ = b.WriteString(lib.MyName())
-	_, _ = b.WriteString(*localport)
-	_, _ = b.WriteString(*webpath)
+	b.WriteString("://")
+	b.WriteString(lib.MyName())
+	b.WriteString(*localport)
+	b.WriteString(*webpath)
 	return b.String()
 }

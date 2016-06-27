@@ -32,7 +32,7 @@ Usage of serve:
     	The port to run on (default "8080")
   -s	Use TLS
   -u string
-    	The webpath where the uplaod form is hosted (default "xyzzy/")
+    	The webpath where the upload form is hosted (default "xyzzy/")
   -w string
     	The root webpath (default "/")
   -h prints this help
