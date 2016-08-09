@@ -17,17 +17,10 @@ var form = `<html>
 <body>
 <form enctype="multipart/form-data" action="{{.Endpoint}}" method="post">
       <input type="file" name="uploadfile" />
-      <input type="hidden" name="token" value="{{.Token}}"/>
       <input type="submit" value="upload" />
 </form>
 </body>
 </html>`
-
-var tokens map[string]struct{}
-
-func init() {
-	tokens = make(map[string]struct{})
-}
 
 // UploaderEndpoint handles file uploading.
 // It responds to GET requests with the file upload form, and to POST
@@ -40,23 +33,16 @@ func UploaderEndpoint(path, webpath string) http.HandlerFunc {
 
 			t := template.Must(template.New("uploadform").Parse(form))
 			fill := struct {
-				Token    string
 				Endpoint string
 			}{}
-			fill.Token = fmt.Sprintf("%x", data)
 			fill.Endpoint = path
 			//TODO use a cookie instead
-			tokens[fill.Token] = struct{}{}
 			err = t.Execute(w, fill)
 			if err != nil {
 				log.Println(err)
 			}
 		} else if r.Method == "POST" {
 			_ = r.ParseMultipartForm(32 << 20)
-			if _, ok := tokens[r.FormValue("token")]; !ok {
-				http.Error(w, "NOPE", http.StatusUnauthorized)
-				return
-			}
 			file, handler, err := r.FormFile("uploadfile")
 			if err != nil {
 				fmt.Println(err)
