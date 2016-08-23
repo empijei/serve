@@ -32,7 +32,7 @@ Usage of serve:
     	The port to run on (default "8080")
   -s	Use TLS
   -u string
-    	The webpath where the upload form is hosted (default "xyzzy/")
+    	The webpath where the upload form is hosted (default "upload/")
   -w string
     	The root webpath (default "/")
   -h prints this help
@@ -44,6 +44,6 @@ Example to share the ~/share folder on a computer named icarus
 ╰─$ serve
 Local ip address:172.20.6.46
 Serving local folder /home/rob/share/ on "http://icarus.local:8080/"
-File Upload form is available at "http://icarus.local:8080/xyzzy/"
+File Upload form is available at "http://icarus.local:8080/upload/"
 Press Control+C to stop
 ```

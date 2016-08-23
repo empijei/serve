@@ -15,9 +15,10 @@ var form = `<html>
     <title>Upload file</title>
 </head>
 <body>
-<form enctype="multipart/form-data" action="{{.Endpoint}}" method="post">
+<form enctype="multipart/form-data" action="#" method="post">
       <input type="file" name="uploadfile" />
       <input type="submit" value="upload" />
+		<!--{{.Endpoint}}-->
 </form>
 </body>
 </html>`
@@ -62,7 +63,7 @@ func UploaderEndpoint(name, path, webpath string) http.HandlerFunc {
 				log.Println(err)
 				return
 			}
-			fmt.Fprintf(w, "<h1> Uploaded %d bytes</h1><a href='"+webpath+"'>Back to dirlist</a>", n)
+			fmt.Fprintf(w, "<h1> Uploaded %d bytes</h1><a href='"+webpath+"'>Back to dirlist</a><br><a href='"+path+"'>Back to upload form</a>", n)
 		} else {
 			http.Error(w, "Invalid method.", http.StatusMethodNotAllowed)
 		}

@@ -14,7 +14,7 @@ import (
 
 var localport = flag.String("p", "8080", "The port to run on")
 var localfolder = flag.String("f", "", "The folder to serve (default PWD)")
-var uploadpath = flag.String("u", "xyzzy/", "The webpath where the upload form is hosted")
+var uploadpath = flag.String("u", "upload/", "The webpath where the upload form is hosted")
 var webpath = flag.String("w", "/", "The root webpath")
 var tls = flag.Bool("s", false, "Use TLS")
 
