@@ -37,7 +37,7 @@ func main() {
 	fmt.Printf("Serving local folder %v on \"%s\"\n", wd+string(os.PathSeparator)+*localfolder, Name())
 
 	name := Name()
-	http.HandleFunc(*webpath+*uploadpath, lib.UploaderEndpoint(name+*uploadpath, name+*webpath))
+	http.HandleFunc(*webpath+*uploadpath, lib.UploaderEndpoint(name, *uploadpath, *webpath))
 	fmt.Printf("File Upload form is available at \"%s%s\"\n", name, *uploadpath)
 
 	fmt.Println("Press Control+C to stop")

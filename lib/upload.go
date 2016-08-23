@@ -25,7 +25,8 @@ var form = `<html>
 // UploaderEndpoint handles file uploading.
 // It responds to GET requests with the file upload form, and to POST
 // requests with the actual uploading.
-func UploaderEndpoint(path, webpath string) http.HandlerFunc {
+func UploaderEndpoint(name, path, webpath string) http.HandlerFunc {
+	webpath = name + webpath
 	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method == "GET" {
 			data := make([]byte, 8)
